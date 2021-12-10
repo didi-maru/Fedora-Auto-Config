@@ -233,7 +233,7 @@ if [ $POST_INSTALL ]; then
     # Install RPM Fusion repositories
     if $(yn_prompt "  Install RPM Fusion repositories ?" Y); then
         add_rpmfusion 2>&1 | verb "Installing RPM Fusion repositories"
-
+        RPM_FUSION=true
     fi
     
     # Install Nvidia drivers
