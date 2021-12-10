@@ -334,7 +334,7 @@ if [ $THEME ]; then
             THEME_DIR="/boot/grub2/themes"
             THEME_NAME="sleek"
 
-            [ -d ${THEME_DIR}/${THEME_NAME} ] && rm -rf ${THEME_DIR}/${THEME_NAME}
+            [ -d ${THEME_DIR}/${THEME_NAME} ] && rm -rf "${THEME_DIR}/${THEME_NAME}"
             mkdir -p ${THEME_DIR}/${THEME_NAME}
 
             cp -a ${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
@@ -622,7 +622,7 @@ fi # Update grub
 title; echo "Configuration finished"
 
 echo "  Removing work directory ${WORK_DIR}"
-rm -rf ${WORK_DIR}
+rm -rf "${WORK_DIR}"
 echo "  See ${LOG_FILE} fo log informations."
 
 exit 0
