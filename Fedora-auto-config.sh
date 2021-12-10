@@ -67,10 +67,10 @@ if ! [ $POST_INSTALL ] && ! [ $THEME ] && ! [ $GNOME_EXTENSIONS ] && ! [ $CODING
 fi
 
 # Checking if user is root
-# if [ "$EUID" -ne 0 ]; then
-#     echo "Erreur : Cette commande doit être exécutée avec les privilèges super-utilisateur."
-#     exit 1
-# fi
+if [ "$EUID" -ne 0 ]; then
+    echo "Erreur : Cette commande doit être exécutée avec les privilèges super-utilisateur."
+    exit 1
+fi
 
 USER_HOME=$(getent passwd $SUDO_USER | cut -d: -f6) # Get user's home directory
 RUID=$(who | awk 'FNR == 1 {print $1}') # Get the Real Username
@@ -276,7 +276,7 @@ if [ $POST_INSTALL ]; then
     fi
 
     # Install archive manipulation applications 
-    if $(yn_prompt " Install archive manipulation applications ?" Y); then
+    if $(yn_prompt "  Install archive manipulation applications ?" Y); then
         (
             dnf install unzip unrar p7zip file-roller-nautilus -y
         ) 2>&1 | verb "Installing archive manipulation applications"
@@ -284,7 +284,7 @@ if [ $POST_INSTALL ]; then
 
     # Install preload
     [ "$disk_type" = "HDD" ] && default=Y || default=N
-    if $(yn_prompt " Install preload ?" $default); then
+    if $(yn_prompt "  Install preload ?" $default); then
         (
             dnf copr enable elxreno/preload -y
             dnf install preload -y
@@ -299,7 +299,7 @@ if [ $THEME ]; then
     title; echo "Themes installation:"
 
     # Install Orchis theme
-    if $(yn_prompt " Install Orchis theme ?" Y); then
+    if $(yn_prompt "  Install Orchis theme ?" Y); then
         ! [ $GNOME_DEPS ] && install_gnome_deps 2>&1 | verb "Installing dependencies" && GNOME_DEPS=true
         dnf install gnome-shell-extension-user-theme 2>&1 | verb "Installing User Theme GNOME extension"
         (
@@ -316,7 +316,7 @@ if [ $THEME ]; then
     fi
 
     # Install Numix icons theme
-    if $(yn_prompt " Install Numix icons theme ?" Y); then
+    if $(yn_prompt "  Install Numix icons theme ?" Y); then
         ! [ $GNOME_DEPS ] && install_gnome_deps 2>&1 | verb "Installing dependencies" && GNOME_DEPS=true
         (
             dnf install numix-icon-theme -y
@@ -325,7 +325,7 @@ if [ $THEME ]; then
     fi
 
     # Install sleek Grub bootloader theme
-    if $(yn_prompt " Install sleek Grub bootloader theme ?" Y); then
+    if $(yn_prompt "  Install sleek Grub bootloader theme ?" Y); then
         (
             cd $WORK_DIR
             git clone https://github.com/sandesh236/sleek--themes.git
@@ -351,7 +351,7 @@ if [ $THEME ]; then
     fi
 
     # Do some additional tweaks
-    if $(yn_prompt " Do some additional tweaks ?" Y); then
+    if $(yn_prompt "  Do some additional tweaks ?" Y); then
         ! [ $GNOME_DEPS ] && install_gnome_deps 2>&1 | verb "Installing dependencies" && GNOME_DEPS=true
         # -- Apparency --- #
         my_gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
@@ -393,35 +393,35 @@ if [ $GNOME_EXTENSIONS ]; then
     title; echo "GNOME extensions installation and configuration:"
 
     # Install Blur my Shell GNOME extension
-    if $(yn_prompt " Install Blur my Shell GNOME extension ?" Y); then
+    if $(yn_prompt "  Install Blur my Shell GNOME extension ?" Y); then
         ! [ $GNOME_EXT_DEPS ] && install_gnome_extensions_deps 2>&1 | verb "Installing dependencies" && GNOME_EXT_DEPS=true
         sudo -u ${SUDO_USER} gnome-shell-extension-installer 3193 --update --yes 2>&1 | verb "Installing Blur my Shell GNOME extension"
         SETUP_BLUR_MY_SHELL=true
     fi
 
     # Install UI Tune GNOME extension
-    if $(yn_prompt " Install UI Tune GNOME extension ?" Y); then
+    if $(yn_prompt "  Install UI Tune GNOME extension ?" Y); then
         ! [ $GNOME_EXT_DEPS ] && install_gnome_extensions_deps 2>&1 | verb "Installing dependencies" && GNOME_EXT_DEPS=true
         sudo -u ${SUDO_USER} gnome-shell-extension-installer 4158 --update --yes 2>&1 | verb "Installing UI Tune GNOME extension"
         SETUP_UI_TUNE=true
     fi
 
     # Install Tiling Assistant GNOME extension
-    if $(yn_prompt " Install Tiling Assistant GNOME extension ?" Y); then
+    if $(yn_prompt "  Install Tiling Assistant GNOME extension ?" Y); then
         ! [ $GNOME_EXT_DEPS ] && install_gnome_extensions_deps 2>&1 | verb "Installing dependencies" && GNOME_EXT_DEPS=true
         sudo -u ${SUDO_USER} gnome-shell-extension-installer 3733 --update --yes 2>&1 | verb "Installing Tiling Assistant GNOME extension"
         SETUP_TILING_ASSISTANT=true
     fi
 
     # Install Vitals GNOME extension
-    if $(yn_prompt " Install Vitals GNOME extension ?" Y); then
+    if $(yn_prompt "  Install Vitals GNOME extension ?" Y); then
         ! [ $GNOME_EXT_DEPS ] && install_gnome_extensions_deps 2>&1 | verb "Installing dependencies" && GNOME_EXT_DEPS=true
         sudo -u ${SUDO_USER} gnome-shell-extension-installer 1460 --update --yes 2>&1 | verb "Installing Vitals GNOME extension"
         SETUP_VITALS=true
     fi
 
     # Install ddterm GNOME extension
-    if $(yn_prompt " Install ddterm GNOME extension ?" Y); then
+    if $(yn_prompt "  Install ddterm GNOME extension ?" Y); then
         ! [ $GNOME_EXT_DEPS ] && install_gnome_extensions_deps 2>&1 | verb "Installing dependencies" && GNOME_EXT_DEPS=true
         sudo -u ${SUDO_USER} gnome-shell-extension-installer 3780 --update --yes 2>&1 | verb "Installing ddterm GNOME extension"
         SETUP_DDTERM=true
@@ -532,7 +532,7 @@ if [ $CODING ]; then
     title; echo "Coding related installation and configuration:"
     
     # Install VSCodium
-    if $(yn_prompt " Install VSCodium ?" Y); then
+    if $(yn_prompt "  Install VSCodium ?" Y); then
         (
             rpmkeys --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg 
             printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=download.vscodium.com\nbaseurl=https://download.vscodium.com/rpms/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg" | tee -a /etc/yum.repos.d/vscodium.repo
@@ -541,12 +541,12 @@ if [ $CODING ]; then
     fi
 
     # Install micro
-    if $(yn_prompt " Install micro ?" Y); then
+    if $(yn_prompt "  Install micro ?" Y); then
         dnf install micro xclip 2>&1 | verb "Installing micro"
     fi
 
     # Install Fish Shell
-    if $(yn_prompt " Install Fish Shell ?" Y); then
+    if $(yn_prompt "  Install Fish Shell ?" Y); then
         (
             dnf insatll exa
             dnf install fish
@@ -566,7 +566,7 @@ if [ $CODING ]; then
     fi
 
     # Install Meslo font
-    if $(yn_prompt " Install Meslo font ?" Y); then
+    if $(yn_prompt "  Install Meslo font ?" Y); then
         (
             cd $WORK_DIR
             sudo -u ${SUDO_USER} curl -fLo Meslo.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip
@@ -585,7 +585,7 @@ if [ $DOT_FILES ]; then
     title; echo "dot files retrieval:"
 
     # Install chezmoi and retrieve dot files
-    if $(yn_prompt " Install chezmoi and retrieve dot files ?" Y); then
+    if $(yn_prompt "  Install chezmoi and retrieve dot files ?" Y); then
         (
             sudo -u ${SUDO_USER} mkdir -p "${USER_HOME}/.local/bin"
             sudo -u ${SUDO_USER} BINDIR="${USER_HOME}/.local/bin" sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply "didi-maru"
