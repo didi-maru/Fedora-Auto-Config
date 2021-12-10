@@ -301,7 +301,7 @@ if [ $THEME ]; then
     # Install Orchis theme
     if $(yn_prompt "  Install Orchis theme ?" Y); then
         ! [ $GNOME_DEPS ] && install_gnome_deps 2>&1 | verb "Installing dependencies" && GNOME_DEPS=true
-        dnf install gnome-shell-extension-user-theme 2>&1 | verb "Installing User Theme GNOME extension"
+        dnf install gnome-shell-extension-user-theme -y 2>&1 | verb "Installing User Theme GNOME extension"
         (
             if [ ! -d "/usr/share/themes/Orchis" ]; then
                 cd $WORK_DIR
@@ -340,8 +340,8 @@ if [ $THEME ]; then
             cp -a ${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
             
             username=${SUDO_USER^}
-            sed -ci "s/Grub Bootloader/Salut $username,/g"  $THEME_DIR/$THEME_NAME/theme.txt
-            sed -ci "s/select your preferred os/choisi un OS pour démarrer/g"  $THEME_DIR/$THEME_NAME/theme.txt
+            sed -ci "s/Grub Bootloader/Salut $username,/"  $THEME_DIR/$THEME_NAME/theme.txt
+            sed -ci "s/select your preferred os/choisi un OS pour démarrer/"  $THEME_DIR/$THEME_NAME/theme.txt
 
             sed -ci "s/\(^GRUB_TERMINAL_OUTPUT *= *\"console\"\)/# \1/" /etc/default/grub
             setconf /etc/default/grub GRUB_THEME "${THEME_DIR}/${THEME_NAME}/theme.txt"
