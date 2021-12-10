@@ -16,6 +16,7 @@ while [ $# -gt 0 ]; do
         THEME=true
         GNOME_EXTENSIONS=true
         CODING=true
+        DOT_FILES=true
         shift;;
     -p|--post-install)
         POST_INSTALL=true
@@ -536,20 +537,20 @@ if [ $CODING ]; then
         (
             rpmkeys --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg 
             printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=download.vscodium.com\nbaseurl=https://download.vscodium.com/rpms/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg" | tee -a /etc/yum.repos.d/vscodium.repo
-            dnf install codium
+            dnf install -y codium
         ) 2>&1 | verb "Installing VSCodium"
     fi
 
     # Install micro
     if $(yn_prompt "  Install micro ?" Y); then
-        dnf install micro xclip 2>&1 | verb "Installing micro"
+        dnf install -y micro xclip 2>&1 | verb "Installing micro"
     fi
 
     # Install Fish Shell
     if $(yn_prompt "  Install Fish Shell ?" Y); then
         (
-            dnf insatll exa
-            dnf install fish
+            dnf insatll -y exa
+            dnf install -y fish
             sudo -u ${SUDO_USER} chsh -s /usr/bin/fish
         ) 2>&1 | verb "Installing Fish Shell"
 
