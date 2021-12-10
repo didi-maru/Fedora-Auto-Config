@@ -185,7 +185,7 @@ WORK_DIR=$(sudo -u ${SUDO_USER} mktemp -d)
 add_rpmfusion() {
     dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
     dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    dnf update
+    dnf update -y
 }
 RPM_FUSION=
 
