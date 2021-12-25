@@ -595,7 +595,7 @@ if [ $DOT_FILES ]; then
             fi
 
             # Get default profile ID
-            profile="$(gsettings get org.gnome.Terminal.ProfilesList default)"
+            profile="$(my_gsettings get org.gnome.Terminal.ProfilesList default)"
             profile="${profile:1:-1}" # remove leading and trailing single quotes
             dconf load "/org/gnome/terminal/legacy/profiles:/:$profile/" < "${USER_HOME}/gnome-terminal-profile.dconf"
 
