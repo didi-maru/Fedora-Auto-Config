@@ -45,16 +45,16 @@ done
 # Display help section
 if [ $HELP ]; then
     echo "Usage:"
-    echo "  ./Fedora-auto-config.sh OPTION_1 [OPTION_2 ...]"
+    echo "  $0 OPTION_1 [OPTION_2 ...]"
     echo
     echo "OPTIONS:"
     echo "-a, --all                do all actions"
-    echo "-p, --post-install       do actions recommanded after a Fedora install"
+    echo "-p, --post-install       do actions recommended after a Fedora install"
     echo "-t, --theme              install gnome theme, icon theme, GRUB theme and tweak some cosmetical Gnome-shell parameters"
     echo "-e, --gnome-extensions   install gnome extensions and set them up"
     echo "-c, --coding             install vscode, fish shell and other terminal utilities"
     echo "-d, --dot-files          install chezmoi and retrieve dotfiles"
-    echo "-y, --yes                automatically answer yes to recommanded prompts, and add -y flag to dnf commands"
+    echo "-y, --yes                automatically answer yes to recommended prompts, and add -y flag to dnf commands"
     # echo "-v, --verbose            increase verbose level"
     echo "-h, --help               display this help page"
     exit 0
