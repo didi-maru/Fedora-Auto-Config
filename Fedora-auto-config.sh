@@ -104,7 +104,7 @@ install_gnome_deps() {
 
 install_gnome_extensions_deps() {
     run sudo dnf install "$DNF_YES" gnome-tweaks gnome-extensions-app
-    cd $work_dir
+    cd $WORK_DIR
     run wget -O gnome-shell-extension-installer "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
     run chmod +x gnome-shell-extension-installer
     run mv -v gnome-shell-extension-installer "${HOME}/.local/bin"
@@ -189,15 +189,13 @@ if [ $THEME ]; then
 
     title; echo "Themes installation:"
 
-    . themes.sh
+    . ${DIR}/themes.sh
 
     # Install GTK theme
     if $(yn_prompt "Install Catppuccin GTK theme ?" Y); then
         ! [ $GNOME_DEPS ] && install_gnome_deps && GNOME_DEPS=true
         run sudo dnf install "$DNF_YES" gnome-shell-extension-user-theme
         install_catppuccin_theme
-    done
-
     fi
 
     # Install icons theme
@@ -233,7 +231,7 @@ if [ $THEME ]; then
     # Do some additional tweaks
     if $(yn_prompt "Install Mutter-rounded ? (Compilation can take some time) " Y); then
         run sudo dnf install wayland-protocols-devel
-        run cd $work_dir
+        run cd $WORK_DIR
         run git clone https://github.com/yilozt/mutter-rounded.git
         run cd mutter-rounded/fedora_35
         run ./package.sh
@@ -245,13 +243,15 @@ if [ $THEME ]; then
 
         run gsettings set org.gnome.mutter round-corners-radius 18
 
-        run cd $work_dir
-        run git clone https://github.com/yilozt/mutter-rounded-setting.git
-        run cd mutter-rounded-setting
-        run ./install
+        if [ ! -d "$HOME/.local/share/mutter-rounded-setting" ]; then
+            run cd $WORK_DIR
+            run git clone https://github.com/yilozt/mutter-rounded-setting.git
+            run cd mutter-rounded-setting
+            run ./install
 
-        run cd ../
-        run mv "mutter-rounded-setting" "$HOME/.local/share/"
+            run cd ../
+            run mv "mutter-rounded-setting" "$HOME/.local/share/"
+        fi
     fi
 
     # Do some additional tweaks
