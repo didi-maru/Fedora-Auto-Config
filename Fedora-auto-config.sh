@@ -84,10 +84,6 @@ if [ "$(whoami)" = "root" ]; then
     exit 1
 fi
 
-# Creating log file
-LOG_FILE="${DIR}/log.txt"
-printf "" > ${LOG_FILE}
-
 # Creating a work directory 
 cd /tmp
 WORK_DIR=$(mktemp -d)
