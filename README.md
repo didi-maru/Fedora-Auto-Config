@@ -32,4 +32,4 @@ You can however use `Fedora-Auto-Config/Fedora-auto-config.sh --all --yes` to au
 | -h, --help             | display this help page |
 
 
-Use `Fedora-auto-config.sh --help` to display this help page:
+Use `Fedora-auto-config.sh --help` to display this help page.
