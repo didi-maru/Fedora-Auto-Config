@@ -327,19 +327,19 @@ if [ $GNOME_EXTENSIONS ]; then
         RESTART_GNOME_SHELL=true
     fi
 
-    # Install Tiling Assistant GNOME extension
-    if $(yn_prompt "Install Tiling Assistant GNOME extension ?" N); then
+    # Install Forge GNOME extension
+    if $(yn_prompt "Install Tiling Assistant GNOME extension ?" Y); then
         ! [ $GNOME_EXT_DEPS ] && install_gnome_extensions_deps && GNOME_EXT_DEPS=true
-        run gnome-shell-extension-installer 3733 --update --yes
-        SETUP_TILING_ASSISTANT=true
+        run gnome-shell-extension-installer 4481 --update --yes
+        SETUP_FORGE=true
         RESTART_GNOME_SHELL=true
     else
 
-        # Install Forge GNOME extension
-        if $(yn_prompt "Install Tiling Assistant GNOME extension ?" Y); then
+        # Install Tiling Assistant GNOME extension
+        if $(yn_prompt "Install Tiling Assistant GNOME extension ?" N); then
             ! [ $GNOME_EXT_DEPS ] && install_gnome_extensions_deps && GNOME_EXT_DEPS=true
-            run gnome-shell-extension-installer 4481 --update --yes
-            SETUP_FORGE=true
+            run gnome-shell-extension-installer 3733 --update --yes
+            SETUP_TILING_ASSISTANT=true
             RESTART_GNOME_SHELL=true
         fi
 
@@ -361,7 +361,7 @@ if [ $GNOME_EXTENSIONS ]; then
         RESTART_GNOME_SHELL=true
     fi
 
-    # Restart GNOME
+    # Restart GNOME Shell
     if [ $RESTART_GNOME_SHELL ]; then
         echo
         echo -e "\033[1mPlease restart GNOME Shell to continue:\033[0m"
