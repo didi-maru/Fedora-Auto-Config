@@ -90,8 +90,6 @@ WORK_DIR=$(mktemp -d)
 
 [ $YES ] && DNF_YES="-y"
 
-exit 0
-
 ########################################
 
 
@@ -499,13 +497,13 @@ if [ $CODING ]; then
 
     # Install micro
     if $(yn_prompt "  Install micro ?" Y); then
-        run dnf install "$DNF_YES" micro xclip 2>&1 | verb "Installing micro"
+        run sudo dnf install "$DNF_YES" micro xclip 2>&1 | verb "Installing micro"
     fi
 
     # Install Fish Shell
     if $(yn_prompt "  Install Fish Shell ?" Y); then
-        run dnf insatll -y exa
-        run dnf install -y fish
+        run sudo dnf "$DNF_YES" insatll -y exa
+        run sudo dnf "$DNF_YES" install -y fish
         run chsh -s /usr/bin/fish
 
         run fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
