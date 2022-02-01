@@ -511,8 +511,8 @@ if [ $CODING ]; then
         run fish -c "fisher install IlanCosman/tide@v5"
         run fish -c "fisher install jorgebucaran/replay.fish"
         run fish -c "fisher install jorgebucaran/autopair.fish"
-        run fish -c "gazorby/fish-abbreviation-tips"
         run fish -c "fisher install gazorby/fish-exa"
+        # run fish -c "fisher install gazorby/fish-abbreviation-tips"
 
         FISH_INSTALLED=true
     fi
