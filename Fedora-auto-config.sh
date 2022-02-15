@@ -322,7 +322,7 @@ if [ $GNOME_EXTENSIONS ]; then
     fi
 
     # Install Forge GNOME extension
-    if $(yn_prompt "Install Tiling Assistant GNOME extension ?" Y); then
+    if $(yn_prompt "Install Forge GNOME extension ?" Y); then
         ! [ $GNOME_EXT_DEPS ] && install_gnome_extensions_deps && GNOME_EXT_DEPS=true
         run gnome-shell-extension-installer 4481 --update --yes
         SETUP_FORGE=true
