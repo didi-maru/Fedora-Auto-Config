@@ -124,7 +124,7 @@ if [ $POST_INSTALL ]; then
 
     # Tweak dnf congiguration
     if $(yn_prompt "Tweak dnf configuration ?" Y); then
-        run sudo setconf /etc/dnf/dnf.conf fastestmirror True
+        # run sudo setconf /etc/dnf/dnf.conf fastestmirror True
         run sudo setconf /etc/dnf/dnf.conf max_parallel_downloads 10
     fi
 
